@@ -121,7 +121,6 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
-    implementation(libs.coil.okhttp)
 
     // Coroutines
     implementation(libs.coroutines.core)
@@ -129,8 +128,6 @@ dependencies {
 
     // Leanback
     implementation(libs.leanback)
-    implementation(libs.leanback.paging)
-    implementation(libs.leanback.tab)
     implementation(libs.leanback.preference)
 
     // Paging
