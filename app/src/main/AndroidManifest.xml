@@ -27,7 +27,7 @@
         android:required="false" />
 
     <application
-        android:name=".IPTVMasterApplication"
+        android:name=".IPTVMasterApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         android:dataExtractionRules="@xml/backup_rules"
@@ -40,7 +40,7 @@
         tools:targetApi="34">
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.IPTVMaster">
             <intent-filter>
@@ -55,7 +55,7 @@
         </activity>
 
         <activity
-            android:name=".ui.tv.TVMainActivity"
+            android:name=".tv.TVMainActivity"
             android:exported="true"
             android:theme="@style/Theme.IPTVMaster"
             android:banner="@drawable/ic_tv_banner">
@@ -66,7 +66,7 @@
         </activity>
 
         <activity
-            android:name=".ui.player.PlayerActivity"
+            android:name=".player.PlayerActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:supportsPictureInPicture="true"
@@ -79,7 +79,7 @@
         </activity>
 
         <activity
-            android:name=".ui.tv.player.TVPlayerActivity"
+            android:name=".tv.TVPlayerActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:supportsPictureInPicture="true"
@@ -101,7 +101,7 @@
         </service>
 
         <receiver
-            android:name=".ui.widget.FavoritesWidget"
+            android:name=".widget.FavoritesWidget"
             android:exported="true"
             android:label="@string/favorites_widget_name">
             <intent-filter>
