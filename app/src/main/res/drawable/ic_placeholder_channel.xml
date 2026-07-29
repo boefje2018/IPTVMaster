@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+    <!-- TV shape -->
+    <path
+        android:fillColor="#FF2D2D2D"
+        android:pathData="M8,16 L56,16 C58.2,16 60,17.8 60,20 L60,48 C60,50.2 58.2,52 56,52 L8,52 C5.8,52 4,50.2 4,48 L4,20 C4,17.8 5.8,16 8,16 Z" />
+    <path
+        android:fillColor="#FF1A73E8"
+        android:pathData="M12,22 L52,22 L52,46 L12,46 Z" />
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M22,34 L22,40 L32,37 Z" />
+    <!-- Stand -->
+    <path
+        android:fillColor="#FF2D2D2D"
+        android:pathData="M26,52 L38,52 L36,56 L28,56 Z" />
+    <path
+        android:fillColor="#FF2D2D2D"
+        android:pathData="M22,56 L42,56 L42,58 L22,58 Z" />
+</vector>

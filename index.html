@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPTV Master - Ücretsiz, Açık Kaynak, Sunucusuz IPTV Deneyimi</title>
+<style>
+:root {
+  --primary: #6750A4;
+  --primary-container: #4F378B;
+  --on-primary: #FFFFFF;
+  --secondary: #625B71;
+  --surface: #1C1B1F;
+  --surface-container: #2B2930;
+  --surface-container-high: #332E3B;
+  --surface-container-low: #F7F2FA;
+  --on-surface: #E6E1E5;
+  --on-surface-variant: #CAC4D0;
+  --outline: #938F99;
+  --accent-red: #E53935;
+  --accent-blue: #1A73E8;
+  --bg: #0F0E12;
+  --bg-gradient-1: #0F0E12;
+  --bg-gradient-2: #1A1430;
+  --card-bg: rgba(44, 42, 54, 0.6);
+  --card-border: rgba(103, 80, 164, 0.2);
+  --glass-bg: rgba(28, 27, 31, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --text: #E6E1E5;
+  --text-secondary: #CAC4D0;
+  --nav-bg: rgba(15, 14, 18, 0.85);
+  --section-alt: #141218;
+  --hero-glow: rgba(103, 80, 164, 0.25);
+  --hero-glow-2: rgba(229, 57, 53, 0.12);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --primary: #6750A4;
+  --primary-container: #EADDFF;
+  --on-primary: #FFFFFF;
+  --secondary: #625B71;
+  --surface: #FEF7FF;
+  --surface-container: #F3EDF7;
+  --surface-container-high: #ECE6F0;
+  --surface-container-low: #F7F2FA;
+  --on-surface: #1D1B20;
+  --on-surface-variant: #49454F;
+  --outline: #79747E;
+  --bg: #FEF7FF;
+  --bg-gradient-1: #FEF7FF;
+  --bg-gradient-2: #F3EDF7;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(103, 80, 164, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --shadow: 0 8px 32px rgba(103,80,164,0.15);
+  --text: #1D1B20;
+  --text-secondary: #49454F;
+  --nav-bg: rgba(254, 247, 255, 0.85);
+  --section-alt: #F7F2FA;
+  --hero-glow: rgba(103, 80, 164, 0.15);
+  --hero-glow-2: rgba(229, 57, 53, 0.06);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-container); }
+
+a { color: var(--primary); text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background var(--transition);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.nav-logo svg { width: 32px; height: 32px; }
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-links a {
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: var(--primary-container);
+  color: var(--on-primary);
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 1.2rem;
+  transition: all var(--transition);
+  background: var(--card-bg);
+}
+
+.theme-toggle:hover {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  transform: rotate(15deg);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 50%, var(--bg-gradient-1) 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--hero-glow) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--hero-glow-2) 0%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-container);
+  color: var(--on-primary);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border: 1px solid rgba(103, 80, 164, 0.3);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  max-width: 540px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 4px 20px rgba(103, 80, 164, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(103, 80, 164, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--outline);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary);
+  background: var(--primary-container);
+  color: var(--on-primary);
+}
+
+.btn-accent {
+  background: var(--accent-red);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(229, 57, 53, 0.3);
+}
+
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(229, 57, 53, 0.5);
+}
+
+/* Phone mockup */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.phone-mockup {
+  width: 300px;
+  height: 600px;
+  background: #121212;
+  border-radius: 40px;
+  border: 3px solid #333;
+  padding: 12px;
+  position: relative;
+  box-shadow:
+    0 0 60px rgba(103, 80, 164, 0.3),
+    0 30px 80px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  background: #121212;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #1a1a2e;
+  position: relative;
+}
+
+.phone-screen-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-status-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 0.7rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.phone-app-content {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phone-app-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+}
+
+.phone-app-bar .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.phone-app-bar span {
+  font-size: 0.75rem;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.phone-channel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.phone-channel.active {
+  background: rgba(103, 80, 164, 0.2);
+  border: 1px solid rgba(103, 80, 164, 0.3);
+}
+
+.phone-channel .ch-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.phone-channel .ch-info { flex: 1; }
+.phone-channel .ch-name { font-size: 0.75rem; color: #ddd; font-weight: 600; }
+.phone-channel .ch-meta { font-size: 0.6rem; color: #888; }
+.phone-channel .ch-now { font-size: 0.6rem; color: var(--primary); text-align: right; }
+
+.phone-bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: auto;
+}
+
+.phone-bottom-nav span {
+  font-size: 0.6rem;
+  color: #666;
+  padding: 4px 10px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.phone-bottom-nav span.active {
+  color: var(--primary);
+  background: rgba(103, 80, 164, 0.15);
+}
+
+/* Floating elements */
+.float-elements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.float-elements span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.2;
+  animation: float 6s infinite;
+}
+
+.float-elements span:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.float-elements span:nth-child(2) { top: 40%; left: 80%; animation-delay: 1s; width: 10px; height: 10px; }
+.float-elements span:nth-child(3) { top: 70%; left: 20%; animation-delay: 2s; }
+.float-elements span:nth-child(4) { top: 30%; left: 60%; animation-delay: 3s; width: 8px; height: 8px; background: var(--accent-red); }
+.float-elements span:nth-child(5) { top: 80%; left: 70%; animation-delay: 4s; }
+.float-elements span:nth-child(6) { top: 10%; left: 40%; animation-delay: 0.5s; width: 4px; height: 4px; background: var(--accent-blue); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+  50% { transform: translateY(-30px) scale(1.5); opacity: 0.5; }
+}
+
+/* Stats bar */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 900px;
+  margin: -40px auto 0;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.stat-card .stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.stat-card .stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Sections */
+.section {
+  padding: 80px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-alt {
+  background: var(--section-alt);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.section-header h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1px solid var(--glass-border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.tab-btn:hover {
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 28px 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.feature-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent-red));
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feature-card:hover::before { opacity: 1; }
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(103, 80, 164, 0.15);
+  border-color: var(--primary);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: var(--on-primary);
+}
+
+.feature-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Screenshots Gallery */
+.screenshots-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  justify-items: center;
+}
+
+.screenshot-mockup {
+  width: 200px;
+  height: 400px;
+  background: #121212;
+  border-radius: 24px;
+  border: 2px solid #333;
+  padding: 8px;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  transition: all 0.4s;
+}
+
+.screenshot-mockup:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(103, 80, 164, 0.2);
+}
+
+.screenshot-mockup .ss-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.ss-screen .ss-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px 12px;
+}
+
+.ss-screen .ss-header span {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+}
+
+.ss-screen .ss-header .ss-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.ss-screen .ss-header .ss-dots i {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+
+.ss-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+}
+
+.ss-card .ss-card-title {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 4px;
+}
+
+.ss-card .ss-card-line {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 4px;
+}
+
+.ss-card .ss-card-line:nth-child(2) { width: 70%; }
+.ss-card .ss-card-line:nth-child(3) { width: 50%; }
+
+/* Tech Stack */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.tech-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 40px rgba(103, 80, 164, 0.1);
+}
+
+.tech-card .tech-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.tech-card h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Download Section */
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.download-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.download-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(103, 80, 164, 0.12);
+  border-color: var(--primary);
+}
+
+.download-card .dl-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+
+.download-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.download-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.download-card .btn { width: 100%; justify-content: center; }
+
+/* Donate */
+.donate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.donate-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.donate-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(103, 80, 164, 0.12);
+  border-color: var(--primary);
+}
+
+.donate-card .donate-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.donate-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.donate-card .donate-sub {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.donate-card .donate-address {
+  background: var(--surface);
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+  color: var(--text-secondary);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.donate-card .donate-address:hover {
+  border-color: var(--primary);
+  background: var(--primary-container);
+  color: var(--on-primary);
+}
+
+/* Footer */
+footer {
+  background: var(--section-alt);
+  border-top: 1px solid var(--glass-border);
+  padding: 48px 24px 24px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-brand h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-brand p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  max-width: 320px;
+}
+
+.footer-links h4 {
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+
+.footer-links a:hover { color: var(--primary); }
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.footer-bottom .social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-bottom .social-links a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  transition: all var(--transition);
+}
+
+.footer-bottom .social-links a:hover {
+  background: var(--primary-container);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 16px;
+    gap: 4px;
+    border-bottom: 1px solid var(--glass-border);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--transition);
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav-links a { width: 100%; text-align: center; }
+
+  .hamburger { display: flex; }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-content { order: 1; }
+  .hero-visual { order: 0; }
+  .hero p { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+
+  .phone-mockup {
+    width: 220px;
+    height: 450px;
+  }
+
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -20px;
+    gap: 12px;
+  }
+
+  .section { padding: 60px 16px; }
+
+  .features-grid,
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .phone-mockup {
+    width: 180px;
+    height: 370px;
+  }
+
+  .features-grid,
+  .tech-grid { grid-template-columns: 1fr; }
+
+  .screenshots-gallery { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .screenshot-mockup { width: 140px; height: 280px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#6750A4"/>
+        <path d="M8 10h16v2H8zm0 5h12v2H8zm0 5h14v2H8z" fill="#fff" opacity="0.9"/>
+        <circle cx="24" cy="22" r="3" fill="#E53935"/>
+        <path d="M24 20v4l3-2z" fill="#fff"/>
+      </svg>
+      IPTV Master
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#ozellikler" class="active">Özellikler</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#teknoloji">Teknoloji</a></li>
+      <li><a href="#indir">İndir</a></li>
+      <li><a href="#bagis">Bağış</a></li>
+      <li>
+        <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="float-elements">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>⭐</span> v2.0.0 • Açık Kaynak
+      </div>
+      <h1>IPTV Master</h1>
+      <p>Ücretsiz, açık kaynak ve sunucusuz IPTV deneyimi. M3U, Xtream Codes, EPG desteği ile televizyon izlemenin en modern yolu.</p>
+      <div class="hero-actions">
+        <a href="#indir" class="btn btn-primary">
+          <span>📲</span> Hemen Başla
+        </a>
+        <a href="https://github.com/username/iptv-master" target="_blank" class="btn btn-outline">
+          <span>💻</span> GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="phone-mockup" id="heroPhone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-screen-inner" id="phoneScreens">
+            <div class="phone-status-bar">
+              <span>09:41</span>
+              <span>📶  🔋</span>
+            </div>
+            <div class="phone-app-content">
+              <div class="phone-app-bar">
+                <div class="dot"></div>
+                <span>IPTV Master</span>
+              </div>
+              <div class="phone-channel active">
+                <div class="ch-logo" style="background:#E53935;">TR</div>
+                <div class="ch-info">
+                  <div class="ch-name">TRT 1 HD</div>
+                  <div class="ch-meta">Türkiye • Haber</div>
+                </div>
+                <div class="ch-now">🔴 CANLI</div>
+              </div>
+              <div class="phone-channel">
+                <div class="ch-logo" style="background:#1A73E8;">NT</div>
+                <div class="ch-info">
+                  <div class="ch-name">Nat Geo Wild</div>
+                  <div class="ch-meta">Belgesel • 1080p</div>
+                </div>
+                <div class="ch-now">%72</div>
+              </div>
+              <div class="phone-channel">
+                <div class="ch-logo" style="background:#2E7D32;">SP</div>
+                <div class="ch-info">
+                  <div class="ch-name">Spor TV</div>
+                  <div class="ch-meta">Spor • 4K</div>
+                </div>
+                <div class="ch-now">⚽</div>
+              </div>
+              <div class="phone-channel">
+                <div class="ch-logo" style="background:#F9A825;">MV</div>
+                <div class="ch-info">
+                  <div class="ch-name">Movie Max</div>
+                  <div class="ch-meta">Film • HD</div>
+                </div>
+                <div class="ch-now">🎬</div>
+              </div>
+              <div class="phone-channel">
+                <div class="ch-logo" style="background:#7B1FA2;">BB</div>
+                <div class="ch-info">
+                  <div class="ch-name">BBC World</div>
+                  <div class="ch-meta">Haber • İngilizce</div>
+                </div>
+                <div class="ch-now">📡</div>
+              </div>
+              <div class="phone-bottom-nav">
+                <span class="active">📺</span>
+                <span>🔍</span>
+                <span>📋</span>
+                <span>⚙️</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-number"><span id="statChannels">0</span>+</div>
+    <div class="stat-label">Kanal Desteği</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number"><span id="statUsers">0</span>K+</div>
+    <div class="stat-label">Aktif Kullanıcı</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number"><span id="statStars">0</span>+</div>
+    <div class="stat-label">GitHub Yıldız</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number"><span id="statDownloads">0</span>K+</div>
+    <div class="stat-label">İndirme</div>
+  </div>
+</div>
+
+<section class="section" id="ozellikler">
+  <div class="section-header">
+    <h2>Özellikler</h2>
+    <p>IPTV Master ile gelen tüm özellikler</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tabFeatures">Özellikler</button>
+    <button class="tab-btn" data-tab="tabGallery">Ekran Görüntüleri</button>
+    <button class="tab-btn" data-tab="tabTech">Teknoloji</button>
+  </div>
+
+  <div class="tab-content active" id="tabFeatures">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🐙</div>
+        <h3>GitHub Entegrasyonu</h3>
+        <p>M3U listelerini GitHub üzerinden senkronize edin, otomatik güncellemelerle her zaman güncel kalın.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <h3>M3U / Xtream Codes Desteği</h3>
+        <p>M3U linkleri ve Xtream Codes API ile tam uyumlu. Tüm IPTV sağlayıcılarınızı tek bir yerde toplayın.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Telefon + TV + PC Uyumlu</h3>
+        <p>Android telefon, tablet, Android TV ve PC'de sorunsuz çalışır. Her ekrana otomatik uyum.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>EPG Program Rehberi</h3>
+        <p>XMLTV ve JTV formatlarında EPG desteği. Artık ne izleyeceğinizi önceden planlayın.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Material 3 Tasarım</h3>
+        <p>Google'ın en son tasarım dili Material Design 3 ile modern ve akıcı bir kullanıcı arayüzü.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚫</div>
+        <h3>Reklamsız / Bağış Sistemi</h3>
+        <p>Hiçbir reklam içermez. Geliştiriciyi desteklemek isterseniz bağış sistemini kullanabilirsiniz.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▶️</div>
+        <h3>Media3 ExoPlayer</h3>
+        <p>Jetpack Media3 ile güçlendirilmiş ExoPlayer. HLS, RTSP, HTTP, UDP dahil tüm yayın protokolleri.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Çoklu Dil Desteği</h3>
+        <p>Türkçe, İngilizce, Almanca, İspanyolca ve daha fazlası. Topluluk katkılarına açık.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖼️</div>
+        <h3>Picture-in-Picture</h3>
+        <p>Diğer uygulamaları kullanırken arka planda TV izleyin. PiP modu ile çoklu görev.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📺</div>
+        <h3>Chromecast Desteği</h3>
+        <p>Google Cast protokolü ile televizyonunuza yayın yapın. Büyük ekranda IPTV keyfi.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📲</div>
+        <h3>Android TV Optimize</h3>
+        <p>Android TV için özel olarak optimize edilmiş arayüz. Uzaktan kumanda ile tam uyumlu.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔓</div>
+        <h3>Açık Kaynak (GPL v3)</h3>
+        <p>Tamamen açık kaynak. Özgürce inceleyin, katkıda bulunun ve kendi sürümünüzü oluşturun.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tabGallery">
+    <div class="screenshots-gallery">
+      <div class="screenshot-mockup">
+        <div class="ss-screen" style="background:linear-gradient(180deg,#1a1a2e,#16213e);">
+          <div class="ss-header">
+            <span>Kanal Listesi</span>
+            <div class="ss-dots"><i></i><i></i><i></i></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">TRT 1 HD</div>
+            <div class="ss-card-line"></div>
+            <div class="ss-card-line"></div>
+          </div>
+          <div class="ss-card" style="background:rgba(103,80,164,0.12);border:1px solid rgba(103,80,164,0.2);">
+            <div class="ss-card-title" style="color:#6750A4;">Nat Geo Wild</div>
+            <div class="ss-card-line" style="width:60%;"></div>
+            <div class="ss-card-line" style="width:40%;"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">Spor TV</div>
+            <div class="ss-card-line"></div>
+            <div class="ss-card-line"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">BBC World</div>
+            <div class="ss-card-line"></div>
+            <div class="ss-card-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-mockup">
+        <div class="ss-screen" style="background:linear-gradient(180deg,#1c1b1f,#2b1f3a);">
+          <div class="ss-header">
+            <span>EPG Rehberi</span>
+            <div class="ss-dots"><i></i><i></i><i></i></div>
+          </div>
+          <div style="display:flex;gap:4px;margin-bottom:8px;">
+            <span style="background:rgba(103,80,164,0.2);padding:3px 8px;border-radius:6px;font-size:0.55rem;color:#6750A4;">Paz</span>
+            <span style="background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:6px;font-size:0.55rem;color:#888;">Pzt</span>
+            <span style="background:rgba(255,255,255,0.05);padding:3px 8px;border-radius:6px;font-size:0.55rem;color:#888;">Sal</span>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">TRT 1 — 20:00</div>
+            <div class="ss-card-line" style="width:85%;"></div>
+            <div class="ss-card-line" style="width:55%;"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">Nat Geo — 21:00</div>
+            <div class="ss-card-line" style="width:75%;"></div>
+            <div class="ss-card-line" style="width:50%;"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">Spor TV — 22:00</div>
+            <div class="ss-card-line" style="width:90%;"></div>
+            <div class="ss-card-line" style="width:60%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-mockup">
+        <div class="ss-screen" style="background:linear-gradient(180deg,#0a0a14,#1a0a2e);">
+          <div class="ss-header">
+            <span>Oynatıcı</span>
+            <div class="ss-dots"><i></i><i></i><i></i></div>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
+            <div style="width:40px;height:40px;border-radius:50%;border:3px solid rgba(255,255,255,0.1);border-top-color:#6750A4;animation:spin 1s linear infinite;margin-bottom:8px;"></div>
+            <div style="font-size:0.6rem;color:#888;">Nat Geo Wild</div>
+            <div style="font-size:0.5rem;color:#666;">Belgesel • 1080p</div>
+            <div style="width:80%;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:8px;overflow:hidden;">
+              <div style="width:45%;height:100%;background:linear-gradient(90deg,#6750A4,#E53935);border-radius:2px;"></div>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:8px;">
+              <span style="font-size:0.7rem;color:#888;">⏮️</span>
+              <span style="font-size:0.7rem;color:#ddd;">⏸️</span>
+              <span style="font-size:0.7rem;color:#888;">⏭️</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-mockup">
+        <div class="ss-screen" style="background:linear-gradient(180deg,#141218,#2d1f3e);">
+          <div class="ss-header">
+            <span>Ayarlar</span>
+            <div class="ss-dots"><i></i><i></i><i></i></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">📡 Listed Ekle</div>
+            <div class="ss-card-line" style="width:50%;"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">🎨 Tema</div>
+            <div class="ss-card-line" style="width:40%;"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">🌍 Dil</div>
+            <div class="ss-card-line" style="width:55%;"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">📺 Chromecast</div>
+            <div class="ss-card-line" style="width:45%;"></div>
+          </div>
+          <div class="ss-card">
+            <div class="ss-card-title">🖼️ PiP Modu</div>
+            <div class="ss-card-line" style="width:60%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tabTech">
+    <div class="tech-grid">
+      <div class="tech-card">
+        <span class="tech-icon">🟣</span>
+        <h4>Kotlin</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">🖌️</span>
+        <h4>Jetpack Compose</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">🎨</span>
+        <h4>Material 3</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">▶️</span>
+        <h4>Media3 ExoPlayer</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">💾</span>
+        <h4>Room Database</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">💉</span>
+        <h4>Hilt DI</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">🔄</span>
+        <h4>Kotlin Coroutines</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">🌊</span>
+        <h4>Kotlin Flow</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">🧭</span>
+        <h4>Navigation Compose</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">🔗</span>
+        <h4>Retrofit + OkHttp</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">📜</span>
+        <h4>Coil (Görsel Yükleme)</h4>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon">🤖</span>
+        <h4>Android TV Leanback</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="indir">
+  <div class="section-header">
+    <h2>Kurulum & İndirme</h2>
+    <p>IPTV Master'ı hemen kullanmaya başlayın</p>
+  </div>
+
+  <div class="download-grid">
+    <div class="download-card">
+      <div class="dl-icon">📦</div>
+      <h3>APK İndir</h3>
+      <p>En son sürüm APK'yı doğrudan indirin ve yükleyin.</p>
+      <a href="#" class="btn btn-primary">
+        <span>📲</span> APK İndir v2.0.0
+      </a>
+    </div>
+
+    <div class="download-card">
+      <div class="dl-icon">🐙</div>
+      <h3>GitHub Release</h3>
+      <p>GitHub Releases sayfasından tüm sürümleri görüntüleyin.</p>
+      <a href="https://github.com/username/iptv-master/releases" target="_blank" class="btn btn-outline">
+        <span>⬇️</span> Releases
+      </a>
+    </div>
+
+    <div class="download-card">
+      <div class="dl-icon">🔧</div>
+      <h3>Kaynaktan Derle</h3>
+      <p>Projeyi fork'layın, Android Studio ile açın ve derleyin.</p>
+      <a href="https://github.com/username/iptv-master" target="_blank" class="btn btn-outline">
+        <span>💻</span> Kaynak Kod
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="bagis">
+  <div class="section-header">
+    <h2>Bağış Yap</h2>
+    <p>Projeyi beğendiyseniz bir kahve ısmarlayarak destek olabilirsiniz ❤️</p>
+  </div>
+
+  <div class="donate-grid">
+    <div class="donate-card">
+      <div class="donate-icon">☕</div>
+      <h3>Buy Me a Coffee</h3>
+      <p class="donate-sub">Bir kahve ısmarla ☕</p>
+      <a href="#" target="_blank" class="btn btn-accent" style="width:100%;justify-content:center;">
+        <span>☕</span> Bağış Yap
+      </a>
+    </div>
+
+    <div class="donate-card">
+      <div class="donate-icon">💸</div>
+      <h3>PayPal</h3>
+      <p class="donate-sub">PayPal ile güvenli bağış</p>
+      <a href="#" target="_blank" class="btn btn-primary" style="width:100%;justify-content:center;">
+        <span>💸</span> PayPal ile Bağış
+      </a>
+    </div>
+
+    <div class="donate-card">
+      <div class="donate-icon">₿</div>
+      <h3>Bitcoin</h3>
+      <p class="donate-sub">Bitcoin ile anonim bağış</p>
+      <div class="donate-address" onclick="copyToClipboard(this)">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>
+        <svg viewBox="0 0 32 32" fill="none" style="width:28px;height:28px;">
+          <rect width="32" height="32" rx="8" fill="#6750A4"/>
+          <path d="M8 10h16v2H8zm0 5h12v2H8zm0 5h14v2H8z" fill="#fff" opacity="0.9"/>
+          <circle cx="24" cy="22" r="3" fill="#E53935"/>
+          <path d="M24 20v4l3-2z" fill="#fff"/>
+        </svg>
+        IPTV Master
+      </h3>
+      <p>Ücretsiz, açık kaynak ve sunucusuz IPTV deneyimi. Material 3 tasarım ve Media3 ExoPlayer ile modern televizyon izleme uygulaması.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Hızlı Linkler</h4>
+      <ul>
+        <li><a href="#ozellikler">Özellikler</a></li>
+        <li><a href="#galeri">Galeri</a></li>
+        <li><a href="#teknoloji">Teknoloji</a></li>
+        <li><a href="#indir">İndir</a></li>
+        <li><a href="#bagis">Bağış</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Kaynaklar</h4>
+      <ul>
+        <li><a href="https://github.com/username/iptv-master" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/username/iptv-master/releases" target="_blank">Sürüm Notları</a></li>
+        <li><a href="https://github.com/username/iptv-master/issues" target="_blank">Hata Bildir</a></li>
+        <li><a href="https://github.com/username/iptv-master/discussions" target="_blank">Tartışmalar</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2024 IPTV Master. GPL v3 lisansı ile lisanslanmıştır.</span>
+    <div class="social-links">
+      <a href="https://github.com/username/iptv-master" target="_blank" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.418-1.306.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.235-3.22-.123-.3-.535-1.52.117-3.16 0 0 1.008-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.29-1.552 3.297-1.23 3.297-1.23.653 1.64.24 2.86.118 3.16.768.84 1.233 1.91 1.233 3.22 0 4.61-2.804 5.62-5.476 5.92.43.37.824 1.102.824 2.22 0 1.602-.015 2.894-.015 3.287 0 .322.216.694.825.57C20.565 21.795 24 17.3 24 12 24 5.37 18.63 0 12 0z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const html = document.documentElement;
+
+themeToggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  themeIcon.textContent = next === 'dark' ? '🌙' : '☀️';
+});
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+  });
+});
+
+const tabs = document.querySelectorAll('.tab-btn');
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabs.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+const featureCards = document.querySelectorAll('.feature-card');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+featureCards.forEach(card => observer.observe(card));
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offset = 80;
+      const pos = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: pos, behavior: 'smooth' });
+    }
+  });
+});
+
+function animateNumber(el, target, suffix, duration) {
+  let start = 0;
+  const increment = target / (duration / 16);
+  function step() {
+    start += increment;
+    if (start >= target) {
+      el.textContent = target + suffix;
+      return;
+    }
+    el.textContent = Math.floor(start) + suffix;
+    requestAnimationFrame(step);
+  }
+  step();
+}
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateNumber(document.getElementById('statChannels'), 8500, '', 2000);
+      animateNumber(document.getElementById('statUsers'), 25, 'K', 2000);
+      animateNumber(document.getElementById('statStars'), 400, '', 2000);
+      animateNumber(document.getElementById('statDownloads'), 50, 'K', 2000);
+      statObserver.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+
+const statsBar = document.querySelector('.stats-bar');
+if (statsBar) statObserver.observe(statsBar);
+
+let phoneScreenIndex = 0;
+const phoneScreens = [
+  {
+    content: `
+      <div class="phone-status-bar"><span>09:41</span><span>📶  🔋</span></div>
+      <div class="phone-app-content">
+        <div class="phone-app-bar"><div class="dot"></div><span>IPTV Master</span></div>
+        <div class="phone-channel active">
+          <div class="ch-logo" style="background:#E53935;">TR</div>
+          <div class="ch-info"><div class="ch-name">TRT 1 HD</div><div class="ch-meta">Türkiye • Haber</div></div>
+          <div class="ch-now">🔴 CANLI</div>
+        </div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#1A73E8;">NT</div>
+          <div class="ch-info"><div class="ch-name">Nat Geo Wild</div><div class="ch-meta">Belgesel • 1080p</div></div>
+          <div class="ch-now">%72</div>
+        </div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#2E7D32;">SP</div>
+          <div class="ch-info"><div class="ch-name">Spor TV</div><div class="ch-meta">Spor • 4K</div></div>
+          <div class="ch-now">⚽</div>
+        </div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#7B1FA2;">BB</div>
+          <div class="ch-info"><div class="ch-name">BBC World</div><div class="ch-meta">Haber • İngilizce</div></div>
+          <div class="ch-now">📡</div>
+        </div>
+        <div class="phone-bottom-nav"><span class="active">📺</span><span>🔍</span><span>📋</span><span>⚙️</span></div>
+      </div>
+    `
+  },
+  {
+    content: `
+      <div class="phone-status-bar"><span>10:15</span><span>📶  🔋</span></div>
+      <div class="phone-app-content">
+        <div class="phone-app-bar"><div class="dot"></div><span>EPG Rehberi</span></div>
+        <div style="display:flex;gap:4px;margin-bottom:4px;">
+          <span style="background:rgba(103,80,164,0.25);padding:2px 10px;border-radius:6px;font-size:0.6rem;color:#6750A4;">Paz</span>
+          <span style="padding:2px 10px;border-radius:6px;font-size:0.6rem;color:#666;">Pzt</span>
+          <span style="padding:2px 10px;border-radius:6px;font-size:0.6rem;color:#666;">Sal</span>
+        </div>
+        <div class="phone-channel active">
+          <div class="ch-logo" style="background:#E53935;">TR</div>
+          <div class="ch-info"><div class="ch-name">TRT 1 HD</div><div class="ch-meta">20:00 - Ana Haber</div></div>
+          <div class="ch-now">🔴</div>
+        </div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#1A73E8;">NT</div>
+          <div class="ch-info"><div class="ch-name">Nat Geo Wild</div><div class="ch-meta">21:00 - Vahşi Yaşam</div></div>
+          <div class="ch-now">🎬</div>
+        </div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#2E7D32;">SP</div>
+          <div class="ch-info"><div class="ch-name">Spor TV</div><div class="ch-meta">21:30 - Maç</div></div>
+          <div class="ch-now">⚽</div>
+        </div>
+        <div class="phone-bottom-nav"><span>📺</span><span class="active">🔍</span><span>📋</span><span>⚙️</span></div>
+      </div>
+    `
+  },
+  {
+    content: `
+      <div class="phone-status-bar"><span>10:30</span><span>📶  🔋</span></div>
+      <div class="phone-app-content">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+          <div style="width:50px;height:50px;border-radius:50%;border:3px solid rgba(255,255,255,0.1);border-top-color:#6750A4;animation:spin 1s linear infinite;margin-bottom:8px;"></div>
+          <div style="font-size:0.8rem;color:#ddd;font-weight:600;">Nat Geo Wild</div>
+          <div style="font-size:0.65rem;color:#888;">Vahşi Yaşam • 1080p</div>
+          <div style="width:90%;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:12px;overflow:hidden;">
+            <div style="width:62%;height:100%;background:linear-gradient(90deg,#6750A4,#E53935);border-radius:2px;"></div>
+          </div>
+          <div style="display:flex;gap:16px;margin-top:12px;">
+            <span style="font-size:0.85rem;color:#888;">⏮️</span>
+            <span style="font-size:0.85rem;color:#fff;">⏸️</span>
+            <span style="font-size:0.85rem;color:#888;">⏭️</span>
+          </div>
+        </div>
+        <div class="phone-bottom-nav"><span>📺</span><span>🔍</span><span class="active">📋</span><span>⚙️</span></div>
+      </div>
+    `
+  },
+  {
+    content: `
+      <div class="phone-status-bar"><span>11:00</span><span>📶  🔋</span></div>
+      <div class="phone-app-content">
+        <div class="phone-app-bar"><div class="dot"></div><span>Ayarlar</span></div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#6750A4;font-size:0.6rem;">📡</div>
+          <div class="ch-info"><div class="ch-name">Liste Ekle</div><div class="ch-meta">M3U, Xtream</div></div>
+          <div class="ch-now">></div>
+        </div>
+        <div class="phone-channel active">
+          <div class="ch-logo" style="background:#6750A4;font-size:0.6rem;">🎨</div>
+          <div class="ch-info"><div class="ch-name">Tema</div><div class="ch-meta">Koyu / Açık</div></div>
+          <div class="ch-now">></div>
+        </div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#6750A4;font-size:0.6rem;">🌍</div>
+          <div class="ch-info"><div class="ch-name">Dil</div><div class="ch-meta">Türkçe</div></div>
+          <div class="ch-now">></div>
+        </div>
+        <div class="phone-channel">
+          <div class="ch-logo" style="background:#6750A4;font-size:0.6rem;">📺</div>
+          <div class="ch-info"><div class="ch-name">Chromecast</div><div class="ch-meta">Kullanılabilir</div></div>
+          <div class="ch-now">></div>
+        </div>
+        <div class="phone-bottom-nav"><span>📺</span><span>🔍</span><span>📋</span><span class="active">⚙️</span></div>
+      </div>
+    `
+  }
+];
+
+function rotatePhoneScreen() {
+  const container = document.getElementById('phoneScreens');
+  if (container) {
+    phoneScreenIndex = (phoneScreenIndex + 1) % phoneScreens.length;
+    container.style.opacity = '0';
+    container.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      container.innerHTML = phoneScreens[phoneScreenIndex].content;
+      container.style.opacity = '1';
+      container.style.transform = 'scale(1)';
+    }, 250);
+  }
+}
+
+setInterval(rotatePhoneScreen, 4000);
+
+function copyToClipboard(el) {
+  const text = el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = el.textContent;
+    el.textContent = 'Kopyalandı! ✅';
+    el.style.background = 'rgba(103,80,164,0.3)';
+    el.style.color = '#fff';
+    setTimeout(() => {
+      el.textContent = orig;
+      el.style.background = '';
+      el.style.color = '';
+    }, 2000);
+  });
+}
+
+const phoneScreenContainer = document.getElementById('phoneScreens');
+if (phoneScreenContainer) {
+  phoneScreenContainer.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+}
+
+document.querySelectorAll('.screenshot-mockup').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          entry.target.style.transition = 'all 0.6s cubic-bezier(0.4,0,0.2,1)';
+        }, i * 100);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  obs.observe(el);
+});
+
+document.querySelectorAll('.tech-card').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          entry.target.style.transition = 'all 0.5s cubic-bezier(0.4,0,0.2,1)';
+        }, i * 60);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  obs.observe(el);
+});
+
+document.querySelectorAll('.donate-card, .download-card').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          entry.target.style.transition = 'all 0.6s cubic-bezier(0.4,0,0.2,1)';
+        }, i * 100);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  obs.observe(el);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="cnn.us" tvg-name="CNN" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" group-title="News",CNN
+https://example.com/streams/cnn.m3u8
+#EXTINF:-1 tvg-id="bbcworld.uk" tvg-name="BBC World News" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/6d/BBC_World_News.svg" group-title="News",BBC World News
+https://example.com/streams/bbcworld.m3u8
+#EXTINF:-1 tvg-id="skynews.uk" tvg-name="Sky News" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/1b/Sky_News_logo.svg" group-title="News",Sky News
+https://example.com/streams/skynews.m3u8
+#EXTINF:-1 tvg-id="foxnews.us" tvg-name="Fox News" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/67/Fox_News_Channel_logo.svg" group-title="News",Fox News
+https://example.com/streams/foxnews.m3u8
+#EXTINF:-1 tvg-id="espn.us" tvg-name="ESPN" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b3/ESPN_logo.svg" group-title="Sports",ESPN
+https://example.com/streams/espn.m3u8
+#EXTINF:-1 tvg-id="eurosport.int" tvg-name="Eurosport 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0c/Eurosport_1_logo.svg" group-title="Sports",Eurosport 1
+https://example.com/streams/eurosport1.m3u8
+#EXTINF:-1 tvg-id="bein.int" tvg-name="BeIN Sports" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/96/BeIN_Sports_logo.svg" group-title="Sports",BeIN Sports
+https://example.com/streams/beinsports.m3u8
+#EXTINF:-1 tvg-id="nfl.us" tvg-name="NFL Network" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a6/NFL_Network_logo.svg" group-title="Sports",NFL Network
+https://example.com/streams/nfl.m3u8
+#EXTINF:-1 tvg-id="hbous" tvg-name="HBO" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/de/HBO_logo.svg" group-title="Entertainment",HBO
+https://example.com/streams/hbo.m3u8
+#EXTINF:-1 tvg-id="netflix.us" tvg-name="Netflix Originals" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" group-title="Entertainment",Netflix Originals
+https://example.com/streams/netflix.m3u8
+#EXTINF:-1 tvg-id="disney.us" tvg-name="Disney Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/84/Disney_Channel_logo.svg" group-title="Kids",Disney Channel
+https://example.com/streams/disney.m3u8
+#EXTINF:-1 tvg-id="nickelodeon.us" tvg-name="Nickelodeon" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0b/Nickelodeon_2009_logo.svg" group-title="Kids",Nickelodeon
+https://example.com/streams/nickelodeon.m3u8
+#EXTINF:-1 tvg-id="natgeo.us" tvg-name="National Geographic" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/fc/Natgeologo.svg" group-title="Documentary",National Geographic
+https://example.com/streams/natgeo.m3u8
+#EXTINF:-1 tvg-id="discovery.us" tvg-name="Discovery Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f1/Discovery_Channel_logo.svg" group-title="Documentary",Discovery Channel
+https://example.com/streams/discovery.m3u8
+#EXTINF:-1 tvg-id="mtv.us" tvg-name="MTV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/0d/MTV_2021_logo.svg" group-title="Music",MTV
+https://example.com/streams/mtv.m3u8
+#EXTINF:-1 tvg-id="vh1.us" tvg-name="VH1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/6b/VH1_logo.svg" group-title="Music",VH1
+https://example.com/streams/vh1.m3u8
+#EXTINF:-1 tvg-id="bbc1.uk" tvg-name="BBC One" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/9c/BBC_One_logo_2021.svg" group-title="General",BBC One
+https://example.com/streams/bbc1.m3u8
+#EXTINF:-1 tvg-id="itv.uk" tvg-name="ITV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/3/3d/ITV_logo_2019.svg" group-title="General",ITV
+https://example.com/streams/itv.m3u8
+#EXTINF:-1 tvg-id="france24.fr" tvg-name="France 24" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4a/France_24_logo.svg" group-title="News",France 24
+https://example.com/streams/france24.m3u8
+#EXTINF:-1 tvg-id="cctv.cn" tvg-name="CCTV 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/8b/CCTV_1_logo.svg" group-title="General",CCTV 1
+https://example.com/streams/cctv1.m3u8

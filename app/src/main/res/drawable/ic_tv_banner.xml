@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <!-- Background -->
+    <path
+        android:fillColor="#FF121212"
+        android:pathData="M0,0 L320,0 L320,180 L0,180 Z" />
+    <!-- Decorative gradient left -->
+    <path
+        android:fillColor="#FF1A73E8"
+        android:pathData="M0,0 L120,0 L80,180 L0,180 Z"
+        android:alpha="0.15" />
+    <!-- Decorative gradient right -->
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M320,0 L200,0 L240,180 L320,180 Z"
+        android:alpha="0.15" />
+    <!-- Large TV icon -->
+    <path
+        android:fillColor="#FF1A73E8"
+        android:pathData="M120,50 L200,50 C204.4,50 208,53.6 208,58 L208,110 C208,114.4 204.4,118 200,118 L120,118 C115.6,118 112,114.4 112,110 L112,58 C112,53.6 115.6,50 120,50 Z" />
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M126,60 L194,60 L194,108 L126,108 Z" />
+    <!-- Play triangle -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M146,78 L146,90 L162,84 Z" />
+    <!-- TV stand -->
+    <path
+        android:fillColor="#FF1A73E8"
+        android:pathData="M148,118 L172,118 L168,128 L152,128 Z" />
+    <path
+        android:fillColor="#FF1A73E8"
+        android:pathData="M140,128 L180,128 L180,134 L140,134 Z" />
+    <!-- Text: IPTV -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M88,148 L92,148 L92,158 L88,158 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M96,148 L100,148 L100,158 L96,158 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M108,148 L112,148 L112,154 L108,154 L108,158 L104,158 L104,148 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M118,148 L126,148 L126,152 L122,152 L122,154 L126,154 L126,158 L118,158 L118,154 L120,154 L120,152 L118,152 Z" />
+    <!-- Text: MASTER -->
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M170,148 L174,148 L174,158 L170,158 Z" />
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M178,148 L182,148 L182,158 L178,158 Z" />
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M188,148 L190,148 L196,158 L192,158 L188,150 L184,158 L180,148 L184,148 L186,152 Z" />
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M200,148 L204,148 L204,154 L200,154 L200,158 L196,158 L196,148 Z" />
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M210,148 L218,148 L218,152 L214,152 L214,154 L218,154 L218,158 L210,158 L210,154 L212,154 L212,152 L210,152 Z" />
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M224,148 L228,148 L228,158 L224,158 Z" />
+</vector>
