@@ -101,6 +101,7 @@
     <string name="favorites_add_hint">Add channels to favorites</string>
     <string name="search_channels">Search channels…</string>
     <string name="search_programs">Search programs…</string>
+    <string name="favorites_widget_name">Favorites</string>
     <string name="tv_mode">TV Mode</string>
     <string name="tv_all_channels">All Channels</string>
     <string name="tv_categories">Categories</string>
